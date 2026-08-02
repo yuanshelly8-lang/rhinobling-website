@@ -4,5 +4,12 @@ Allow: /
 User-agent: OAI-SearchBot
 Allow: /
 
+User-agent: GPTBot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
 Sitemap: https://rhinobling.com/sitemap.xml
-# GEO update 2026-07-31
+Sitemap: https://rhinobling.com/image-sitemap.xml
+
