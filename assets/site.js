@@ -14,11 +14,11 @@ const helloKittyMirrorCard=`
   <img src="assets/images/mirrors-00-hello-kitty-rhinestone-hand-mirror.webp" alt="Pink Hello Kitty rhinestone handheld cosmetic mirror for wholesale" loading="lazy">
  </a>
  <div class="product-body">
-  <div class="product-kicker">BEST SELLER · CUSTOM DESIGN</div>
+  <div class="product-kicker">BEST SELLER ? CUSTOM DESIGN</div>
   <h3>Hello Kitty Rhinestone Hand Mirror</h3>
   <div class="meta"><span class="tag">MOQ 20 pcs</span><span class="tag">Authorization check</span></div>
   <div class="buy-specs"><div><small>Sample</small><b>Available</b></div><div><small>Colors</small><b>Custom</b></div><div><small>Packaging</small><b>Custom</b></div></div>
-  <div class="product-actions"><a class="text-link" href="product-hello-kitty-rhinestone-mirror.html">View product 鈫?/a><a class="source-link" href="contact.html?product=hello-kitty-rhinestone-hand-mirror">Request quote</a></div>
+  <div class="product-actions"><a class="text-link" href="product-hello-kitty-rhinestone-mirror.html">View product →</a><span class="source-link">Custom available</span></div>
  </div>
 </article>`;
 const extraDrinkware=[
@@ -47,7 +47,7 @@ const drinkwareExpansionCards=extraDrinkware.map(([slug,image,title,theme])=>`
  <div class="product-body"><div class="product-kicker">RHINOBLING PRODUCT COLLECTION</div><h3>${title}</h3>
   <div class="meta"><span class="tag">${theme}</span><span class="tag">OEM available</span></div>
   <div class="buy-specs"><div><small>MOQ</small><b>By design</b></div><div><small>Sample</small><b>Available</b></div><div><small>Packaging</small><b>Custom</b></div></div>
-  <div class="product-actions"><a class="text-link" href="contact.html?product=${slug}">Get factory quote 鈫?/a><a class="source-link" href="category-drinkware.html">Drinkware</a></div>
+  <div class="product-actions"><a class="text-link" href="contact.html?product=${slug}">Get factory quote →</a><a class="source-link" href="category-drinkware.html">Drinkware</a></div>
  </div>
 </article>`).join('');
 const extraMirrors=[
@@ -70,7 +70,7 @@ const mirrorExpansionCards=extraMirrors.map(([slug,image,title,theme])=>`
  <div class="product-body"><div class="product-kicker">RHINOBLING PRODUCT COLLECTION</div><h3>${title}</h3>
   <div class="meta"><span class="tag">${theme}</span><span class="tag">OEM available</span></div>
   <div class="buy-specs"><div><small>MOQ</small><b>By design</b></div><div><small>Sample</small><b>Available</b></div><div><small>Packaging</small><b>Custom</b></div></div>
-  <div class="product-actions"><a class="text-link" href="contact.html?product=${slug}">Get factory quote 鈫?/a><a class="source-link" href="category-mirrors.html">Mirrors</a></div>
+  <div class="product-actions"><a class="text-link" href="contact.html?product=${slug}">Get factory quote →</a><a class="source-link" href="category-mirrors.html">Mirrors</a></div>
  </div>
 </article>`).join('');
 document.querySelectorAll('[data-wa]').forEach(link=>{
