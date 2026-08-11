@@ -117,8 +117,7 @@ if(heroShowcase){
  first.classList.add('hero-slide','active');
  slides.append(first);
  [
-  ['assets/images/banner-bling-beauty.webp','Custom rhinestone mirrors and beauty accessories collection'],
-  ['assets/images/banner-crystal-tools.webp','Rhinestone tools and crystal gift products for wholesale']
+  ['assets/images/banner-bling-beauty.webp','Custom rhinestone mirrors and beauty accessories collection']
  ].forEach(([src,alt])=>{
   const image=document.createElement('img');
   image.className='hero-main hero-slide';

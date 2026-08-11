@@ -82,12 +82,14 @@ section{padding:88px 0}.section-head{display:flex;justify-content:space-between;
 
 /* Homepage banner carousel using the original RhinoBling banner library */
 .hero-carousel{position:relative;overflow:hidden;border-radius:28px;background:#fff;box-shadow:0 35px 80px rgba(82,31,55,.2)}
-.hero-slides{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden}
-.hero-carousel .hero-slide{position:absolute;inset:0;width:100%;height:100%;border-radius:0;object-fit:cover;opacity:0;transform:scale(1.025);transition:opacity .65s ease,transform 5.5s ease;box-shadow:none}
+.hero .hero-grid{grid-template-columns:1fr;gap:42px}
+.hero .hero-copy{max-width:980px}
+.hero-slides{position:relative;width:100%;aspect-ratio:1920/650;overflow:hidden}
+.hero-carousel .hero-slide{position:absolute;inset:0;width:100%;height:100%;border-radius:0;object-fit:contain;object-position:center;opacity:0;transform:scale(1.012);transition:opacity .65s ease,transform 5.5s ease;box-shadow:none;background:#fbd1df}
 .hero-carousel .hero-slide.active{opacity:1;transform:scale(1)}
 .hero-arrow{position:absolute;top:50%;z-index:4;display:grid;place-items:center;width:42px;height:42px;padding:0;transform:translateY(-50%);border:1px solid rgba(255,255,255,.55);border-radius:50%;background:rgba(24,9,17,.52);color:#fff;font:400 32px/1 Georgia,serif;cursor:pointer;backdrop-filter:blur(7px)}
 .hero-prev{left:14px}.hero-next{right:14px}.hero-arrow:hover{background:var(--rose)}
 .hero-dots{position:absolute;z-index:5;left:50%;bottom:16px;display:flex;gap:7px;transform:translateX(-50%)}
 .hero-dots button{width:9px;height:9px;padding:0;border:0;border-radius:99px;background:rgba(255,255,255,.62);cursor:pointer;transition:.25s}.hero-dots button.active{width:28px;background:#fff}
-.hero-carousel .hero-card{z-index:6;bottom:30px}
-@media(max-width:720px){.hero-slides{aspect-ratio:16/11}.hero-arrow{width:36px;height:36px}.hero-carousel .hero-card{bottom:38px}}
+.hero-carousel .hero-card{display:none}
+@media(max-width:720px){.hero-slides{aspect-ratio:1920/650}.hero-arrow{width:36px;height:36px}.hero-dots{bottom:10px}}
