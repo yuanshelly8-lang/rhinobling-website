@@ -53,3 +53,41 @@ section{padding:88px 0}.section-head{display:flex;justify-content:space-between;
 @media(max-width:900px){.collection-shortcuts{grid-template-columns:1fr 1fr}}
 @media(max-width:900px){.detail-grid{grid-template-columns:1fr;gap:34px}}
 @media(max-width:560px){.collection-shortcuts{grid-template-columns:1fr}.product-actions{align-items:flex-start;flex-direction:column}.detail-panel h2{font-size:32px}}
+
+/* Buyer resource center */
+.resource-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}.resource-card{overflow:hidden;border:1px solid var(--line);border-radius:22px;background:#fff;box-shadow:0 16px 42px rgba(89,31,61,.07);transition:.25s}.resource-card:hover{transform:translateY(-4px);box-shadow:0 24px 55px rgba(89,31,61,.13)}.resource-card img{width:100%;aspect-ratio:4/3;object-fit:contain;background:#fff7fa;padding:12px}.resource-card>div{padding:24px}.resource-card span{color:var(--rose);font-size:10px;font-weight:900;letter-spacing:.15em}.resource-card h2{font:700 25px/1.15 Georgia,serif;margin:9px 0 12px}.resource-card p{color:var(--muted);font-size:14px}.resource-card b{color:var(--deep);font-size:13px}.article-cta{margin-top:44px;padding:30px;border-radius:20px;background:var(--rose-soft);border:1px solid #f0cedd}.article-cta h2{margin-top:0}.guide-card p{color:#e0d4da}.guide-card .button{width:100%;margin-top:15px}
+@media(max-width:900px){.resource-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.resource-grid{grid-template-columns:1fr}}
+
+/* Verified buyer feedback */
+.review-section{overflow:hidden;background:linear-gradient(135deg,#fff 0%,#fff5f9 55%,#ffe8f2 100%)}.review-showcase{display:grid;grid-template-columns:1fr;gap:42px;align-items:start}.review-copy{max-width:980px;margin:auto;text-align:center}.review-copy h2{max-width:820px;margin:10px auto 20px;font:700 clamp(38px,4vw,58px)/1.05 Georgia,serif;letter-spacing:-.035em}.review-copy>p{max-width:760px;margin-inline:auto;color:var(--muted);font-size:16px}.review-summary{display:flex;align-items:center;justify-content:center;gap:18px;margin:28px auto 20px;padding:18px 20px;max-width:620px;border:1px solid #efcbd9;border-radius:18px;background:#fff;box-shadow:0 12px 30px rgba(106,35,70,.06)}.review-summary>strong{font:700 44px/1 Georgia,serif;color:var(--deep)}.review-summary span{display:flex;flex-direction:column;text-align:left;font-size:13px;color:var(--muted)}.review-summary b,.review-cards blockquote>div{color:#ff9d25;letter-spacing:.12em}.review-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;text-align:left}.review-cards blockquote{margin:0;padding:20px;border:1px solid var(--line);border-radius:16px;background:#fff}.review-cards blockquote p{margin:7px 0;font:700 16px/1.45 Georgia,serif}.review-cards blockquote footer{color:var(--muted);font-size:11px}.review-copy .actions{justify-content:center}.review-proof{position:relative;display:block;width:100%;overflow:hidden;border:10px solid #fff;border-radius:28px;background:#fff;box-shadow:0 28px 70px rgba(75,24,49,.16)}.review-proof img{display:block;width:100%;height:auto;object-fit:contain}.review-proof span{position:sticky;display:block;left:18px;right:18px;bottom:18px;margin:-58px 18px 18px;padding:12px 15px;border-radius:10px;background:rgba(33,19,27,.88);color:#fff;text-align:center;font-size:12px;font-weight:800}.review-proof:hover span{background:var(--deep)}
+@media(max-width:980px){.review-cards{grid-template-columns:1fr}.review-proof{border-width:7px}}
+@media(max-width:620px){.review-showcase{gap:30px}.review-summary{align-items:flex-start}.review-copy h2{font-size:38px}.review-proof{border-radius:18px}.review-proof span{margin:-54px 10px 10px}}
+
+/* Compact, image-led product cards: override intrinsic HTML image height */
+.product{display:flex;flex-direction:column;height:auto;align-self:start}.product>img,.product-image-link img{display:block;width:100%;height:auto!important;aspect-ratio:1/1;object-fit:cover;object-position:center;background:#fff7fa}.product-body{display:flex;flex:1;flex-direction:column}.product-body .product-quote{margin-top:auto}.home-products{align-items:start}.home-products .product>img{height:310px!important;aspect-ratio:auto;object-fit:cover}.home-products .product-body{min-height:245px}
+@media(max-width:980px){.home-products .product>img{height:360px!important}.home-products .product-body{min-height:220px}}
+@media(max-width:720px){.home-products .product>img{height:420px!important}.home-products .product-body{min-height:0}}
+.review-proof span{position:relative;left:auto;right:auto;bottom:auto}
+
+/* Final product-grid normalization: large imagery without artificial blank card height */
+.products{align-items:start!important;grid-auto-rows:max-content!important}
+.products .product{display:flex!important;align-self:start!important;flex-direction:column!important;height:auto!important;min-height:0!important;overflow:hidden!important}
+.products .product-image-link{display:block!important;width:100%!important;height:290px!important;min-height:0!important;max-height:290px!important;overflow:hidden!important;background:#fff7fa!important}
+.products .product>img,.products .product-image-link img{display:block!important;width:100%!important;height:290px!important;min-height:0!important;max-height:290px!important;aspect-ratio:auto!important;object-fit:cover!important;object-position:center!important;margin:0!important;padding:0!important;background:#fff7fa!important}
+.products .product-body{display:flex!important;flex:0 0 auto!important;flex-direction:column!important;height:auto!important;min-height:0!important;padding:18px!important}
+.products .product-body .product-quote{margin-top:16px!important}.products .product-actions{margin-top:14px!important}
+@media(max-width:980px){.products .product-image-link,.products .product>img,.products .product-image-link img{height:340px!important;max-height:340px!important}}
+@media(max-width:720px){.products .product-image-link,.products .product>img,.products .product-image-link img{height:clamp(320px,88vw,480px)!important;max-height:480px!important}}
+
+/* Homepage banner carousel using the original RhinoBling banner library */
+.hero-carousel{position:relative;overflow:hidden;border-radius:28px;background:#fff;box-shadow:0 35px 80px rgba(82,31,55,.2)}
+.hero-slides{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden}
+.hero-carousel .hero-slide{position:absolute;inset:0;width:100%;height:100%;border-radius:0;object-fit:cover;opacity:0;transform:scale(1.025);transition:opacity .65s ease,transform 5.5s ease;box-shadow:none}
+.hero-carousel .hero-slide.active{opacity:1;transform:scale(1)}
+.hero-arrow{position:absolute;top:50%;z-index:4;display:grid;place-items:center;width:42px;height:42px;padding:0;transform:translateY(-50%);border:1px solid rgba(255,255,255,.55);border-radius:50%;background:rgba(24,9,17,.52);color:#fff;font:400 32px/1 Georgia,serif;cursor:pointer;backdrop-filter:blur(7px)}
+.hero-prev{left:14px}.hero-next{right:14px}.hero-arrow:hover{background:var(--rose)}
+.hero-dots{position:absolute;z-index:5;left:50%;bottom:16px;display:flex;gap:7px;transform:translateX(-50%)}
+.hero-dots button{width:9px;height:9px;padding:0;border:0;border-radius:99px;background:rgba(255,255,255,.62);cursor:pointer;transition:.25s}.hero-dots button.active{width:28px;background:#fff}
+.hero-carousel .hero-card{z-index:6;bottom:30px}
+@media(max-width:720px){.hero-slides{aspect-ratio:16/11}.hero-arrow{width:36px;height:36px}.hero-carousel .hero-card{bottom:38px}}

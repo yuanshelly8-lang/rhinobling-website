@@ -106,3 +106,43 @@ if(prompt&&!sessionStorage.getItem('waPromptClosed')){
   sessionStorage.setItem('waPromptClosed','1');
  });
 }
+
+const heroShowcase=document.querySelector('.hero-showcase');
+if(heroShowcase){
+ const first=heroShowcase.querySelector('.hero-main');
+ const card=heroShowcase.querySelector('.hero-card');
+ heroShowcase.classList.add('hero-carousel');
+ const slides=document.createElement('div');
+ slides.className='hero-slides';
+ first.classList.add('hero-slide','active');
+ slides.append(first);
+ [
+  ['assets/images/banner-bling-beauty.webp','Custom rhinestone mirrors and beauty accessories collection'],
+  ['assets/images/banner-crystal-tools.webp','Rhinestone tools and crystal gift products for wholesale']
+ ].forEach(([src,alt])=>{
+  const image=document.createElement('img');
+  image.className='hero-main hero-slide';
+  image.src=src;
+  image.alt=alt;
+  image.width=1920;
+  image.height=650;
+  slides.append(image);
+ });
+ heroShowcase.prepend(slides);
+ const previous=document.createElement('button');
+ previous.className='hero-arrow hero-prev';previous.type='button';previous.innerHTML='&#8249;';previous.setAttribute('aria-label','Previous banner');
+ const next=document.createElement('button');
+ next.className='hero-arrow hero-next';next.type='button';next.innerHTML='&#8250;';next.setAttribute('aria-label','Next banner');
+ const dotsWrap=document.createElement('div');dotsWrap.className='hero-dots';
+ [...slides.children].forEach((_,i)=>{const dot=document.createElement('button');dot.type='button';dot.setAttribute('aria-label',`Show banner ${i+1}`);if(i===0)dot.className='active';dotsWrap.append(dot)});
+ heroShowcase.insertBefore(previous,card);heroShowcase.insertBefore(next,card);heroShowcase.insertBefore(dotsWrap,card);
+ const slideItems=[...slides.querySelectorAll('.hero-slide')];
+ const dots=[...dotsWrap.children];
+ let current=0;
+ let timer;
+ const showSlide=index=>{current=(index+slideItems.length)%slideItems.length;slideItems.forEach((slide,i)=>slide.classList.toggle('active',i===current));dots.forEach((dot,i)=>dot.classList.toggle('active',i===current))};
+ const start=()=>{clearInterval(timer);timer=setInterval(()=>showSlide(current+1),5000)};
+ previous.addEventListener('click',()=>{showSlide(current-1);start()});next.addEventListener('click',()=>{showSlide(current+1);start()});
+ dots.forEach((dot,i)=>dot.addEventListener('click',()=>{showSlide(i);start()}));
+ heroShowcase.addEventListener('mouseenter',()=>clearInterval(timer));heroShowcase.addEventListener('mouseleave',start);start();
+}
