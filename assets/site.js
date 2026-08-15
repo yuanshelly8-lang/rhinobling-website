@@ -110,22 +110,34 @@ if(prompt&&!sessionStorage.getItem('waPromptClosed')){
 const heroShowcase=document.querySelector('.hero-showcase');
 if(heroShowcase){
  const first=heroShowcase.querySelector('.hero-main');
+ const sourcePicture=first.closest('picture');
  const card=heroShowcase.querySelector('.hero-card');
  heroShowcase.classList.add('hero-carousel');
  const slides=document.createElement('div');
  slides.className='hero-slides';
- first.classList.add('hero-slide','active');
- slides.append(first);
+ const firstSrc=first.currentSrc||first.src;
+ const firstSlide=document.createElement('div');
+ firstSlide.className='hero-slide active';
+ firstSlide.style.backgroundImage=`url("${firstSrc}")`;
+ first.classList.add('hero-slide-image');
+ firstSlide.append(first);
+ slides.append(firstSlide);
+ if(sourcePicture)sourcePicture.remove();
  [
-  ['assets/images/banner-bling-beauty.webp','Custom rhinestone mirrors and beauty accessories collection']
+  ['assets/images/banner-bling-beauty.webp','Custom rhinestone mirrors and beauty accessories collection'],
+  ['assets/images/banner-bling-nail-art-machine.webp','Bling nail art machines and rhinestone beauty tools collection']
  ].forEach(([src,alt])=>{
   const image=document.createElement('img');
-  image.className='hero-main hero-slide';
+  image.className='hero-main hero-slide-image';
   image.src=src;
   image.alt=alt;
   image.width=1920;
   image.height=650;
-  slides.append(image);
+  const slide=document.createElement('div');
+  slide.className='hero-slide';
+  slide.style.backgroundImage=`url("${src}")`;
+  slide.append(image);
+  slides.append(slide);
  });
  heroShowcase.prepend(slides);
  const previous=document.createElement('button');
