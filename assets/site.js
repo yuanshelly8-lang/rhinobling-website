@@ -123,19 +123,24 @@ if(heroShowcase){
  firstSlide.append(first);
  slides.append(firstSlide);
  if(sourcePicture)sourcePicture.remove();
- [
-  ['assets/images/banner-bling-beauty.webp','Custom rhinestone mirrors and beauty accessories collection'],
-  ['assets/images/banner-bling-nail-art-machine.webp','Bling nail art machines and rhinestone beauty tools collection']
- ].forEach(([src,alt])=>{
+ const secondarySlides=[
+  ['assets/images/banner-bling-beauty.webp','assets/images/banner-bling-beauty-960.webp','Custom rhinestone mirrors and beauty accessories collection'],
+  ['assets/images/banner-bling-nail-art-machine.webp','assets/images/banner-bling-nail-art-machine-960.webp','Bling nail art machines and rhinestone beauty tools collection']
+ ];
+ const mobileHero=matchMedia('(max-width:720px)').matches;
+ secondarySlides.forEach(([desktopSrc,mobileSrc,alt])=>{
+  const src=mobileHero?mobileSrc:desktopSrc;
   const image=document.createElement('img');
   image.className='hero-main hero-slide-image';
-  image.src=src;
+  image.dataset.src=src;
   image.alt=alt;
   image.width=1920;
   image.height=650;
+  image.loading='lazy';
+  image.decoding='async';
   const slide=document.createElement('div');
   slide.className='hero-slide';
-  slide.style.backgroundImage=`url("${src}")`;
+  slide.dataset.background=src;
   slide.append(image);
   slides.append(slide);
  });
@@ -151,9 +156,15 @@ if(heroShowcase){
  const dots=[...dotsWrap.children];
  let current=0;
  let timer;
- const showSlide=index=>{current=(index+slideItems.length)%slideItems.length;slideItems.forEach((slide,i)=>slide.classList.toggle('active',i===current));dots.forEach((dot,i)=>dot.classList.toggle('active',i===current))};
+ const loadSlide=slide=>{
+  const image=slide.querySelector('img[data-src]');
+  if(image){image.src=image.dataset.src;delete image.dataset.src}
+  if(slide.dataset.background){slide.style.backgroundImage=`url("${slide.dataset.background}")`;delete slide.dataset.background}
+ };
+ const showSlide=index=>{current=(index+slideItems.length)%slideItems.length;loadSlide(slideItems[current]);slideItems.forEach((slide,i)=>slide.classList.toggle('active',i===current));dots.forEach((dot,i)=>dot.classList.toggle('active',i===current))};
  const start=()=>{clearInterval(timer);timer=setInterval(()=>showSlide(current+1),5000)};
  previous.addEventListener('click',()=>{showSlide(current-1);start()});next.addEventListener('click',()=>{showSlide(current+1);start()});
  dots.forEach((dot,i)=>dot.addEventListener('click',()=>{showSlide(i);start()}));
- heroShowcase.addEventListener('mouseenter',()=>clearInterval(timer));heroShowcase.addEventListener('mouseleave',start);start();
+ heroShowcase.addEventListener('mouseenter',()=>clearInterval(timer));heroShowcase.addEventListener('mouseleave',start);
+ if(mobileHero)setTimeout(start,15000);else start();
 }
