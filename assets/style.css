@@ -262,3 +262,123 @@ section{padding:88px 0}.section-head{display:flex;justify-content:space-between;
   .hero,.hero .wrap.hero-grid{min-height:680px}
   .hero-carousel .hero-slide{background-size:cover;background-position:center}
 }
+
+/* B2B product-detail template */
+.pd-breadcrumb{font-size:13px;color:var(--muted);margin-bottom:18px}.pd-breadcrumb a{color:inherit}.pd-hero{padding:46px 0 28px;background:linear-gradient(135deg,#fff 0%,#fff3f8 100%)}.pd-hero h1{max-width:900px;margin:8px 0 15px;font:700 clamp(42px,5.5vw,70px)/.98 Georgia,serif}.pd-hero .lead{max-width:850px}.pd-main{padding-top:54px}.pd-main .detail-gallery img{object-fit:cover}.pd-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;border:1px solid var(--line);background:var(--line);margin:24px 0}.pd-summary div{background:#fff;padding:15px}.pd-summary small{display:block;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}.pd-content{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(290px,.75fr);gap:56px;align-items:start}.pd-copy{display:grid;gap:44px}.pd-copy h2,.pd-side h2{font:700 34px/1.08 Georgia,serif;margin:0 0 14px}.pd-copy p,.pd-copy li,.pd-side p{color:var(--muted);line-height:1.7}.pd-benefits{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.pd-benefits div{padding:20px;border:1px solid var(--line);border-radius:18px;background:#fff}.pd-benefits strong{display:block;margin-bottom:7px}.pd-specs{width:100%;border-collapse:collapse}.pd-specs th,.pd-specs td{padding:14px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.pd-specs th{width:34%;color:var(--muted);font-size:13px;text-transform:uppercase;letter-spacing:.06em}.pd-side{position:sticky;top:100px;padding:28px;border:1px solid var(--line);border-radius:24px;background:#fff8fb}.pd-side .button{width:100%;text-align:center;margin-top:10px}.pd-related{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.pd-related-card{display:block;border:1px solid var(--line);border-radius:20px;overflow:hidden;background:#fff;color:var(--ink)}.pd-related-card img{display:block;width:100%;aspect-ratio:1/1;object-fit:cover}.pd-related-card span{display:block;padding:16px;font-weight:800}.pd-faq{display:grid;gap:10px}.pd-faq details{padding:18px 20px;border:1px solid var(--line);border-radius:16px;background:#fff}.pd-faq summary{font-weight:800;cursor:pointer}.pd-faq p{margin-bottom:0}.pd-backlinks{display:flex;gap:18px;flex-wrap:wrap;margin-top:20px}.pd-backlinks a{font-weight:800;color:var(--rose)}
+@media(max-width:900px){.pd-content{grid-template-columns:1fr}.pd-side{position:static}.pd-related{grid-template-columns:1fr 1fr}.pd-summary{grid-template-columns:1fr}}
+@media(max-width:560px){.pd-hero{padding-top:30px}.pd-hero h1{font-size:40px}.pd-main{padding-top:30px}.pd-benefits,.pd-related{grid-template-columns:1fr}.pd-copy{gap:34px}.pd-summary div{padding:13px}}
+.product-gallery{display:grid;grid-template-columns:1fr;gap:10px;padding:10px}.pd-main .product-gallery>.product-gallery-main{width:100%;aspect-ratio:1/1;object-fit:contain;border-radius:16px;background:#fff}.product-gallery-thumbs{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.pd-main .product-gallery-thumbs img{width:100%;aspect-ratio:1/1;object-fit:contain;border:1px solid var(--line);border-radius:12px;background:#fff}
+@media(max-width:560px){.product-gallery{padding:8px}.product-gallery-thumbs{grid-template-columns:repeat(2,1fr);gap:8px}}
+
+/*
+  Unified product media system
+  ----------------------------
+  Product grids use a stable square frame. The image fills that frame so one
+  source image cannot make a card taller than its neighbours. Product-detail
+  galleries intentionally use contain: a mirror handle, tumbler lid or logo
+  must not be clipped simply to fill a card.
+*/
+.products{align-items:start;grid-auto-rows:auto}
+.products .product{min-height:0!important;align-self:start}
+.products .product-image-link,
+.products .product>img{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  aspect-ratio:1/1!important;
+  overflow:hidden!important;
+  margin:0!important;
+  padding:0!important;
+  background:#fff!important;
+}
+.products .product-image-link img,
+.products .product>img{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  max-height:none!important;
+  aspect-ratio:auto!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  margin:0!important;
+  padding:0!important;
+}
+/*
+  Actual product photography is complete by default. Only use this opt-in for
+  an editorial image that has already been safely composed for square cropping.
+*/
+.products .product.product--cover .product-image-link img,
+.products .product.product--cover>img,
+.products .product-image-link[data-media-fit="cover"] img{
+  object-fit:cover!important;
+  padding:0!important;
+}
+.home-products .product-image-link,
+.home-products .product>img{height:auto!important;aspect-ratio:1/1!important}
+.home-products .product-body{min-height:0!important}
+
+/* Product-detail main image and thumbnails: complete product, compact frame. */
+.pd-main .detail-gallery.product-gallery{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  gap:10px!important;
+  align-content:start!important;
+  padding:10px!important;
+  min-height:0!important;
+}
+.pd-main .product-gallery>.product-gallery-main{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  aspect-ratio:1/1!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  margin:0!important;
+  padding:0!important;
+  background:#fff!important;
+}
+.pd-main .product-gallery-thumbs{
+  display:grid!important;
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  grid-auto-rows:auto!important;
+  gap:10px!important;
+  align-content:start!important;
+  align-items:start!important;
+  min-height:0!important;
+  margin:0!important;
+  padding:0!important;
+}
+.pd-main .product-gallery-thumbs img{
+  box-sizing:border-box!important;
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  aspect-ratio:1/1!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  align-self:start!important;
+  margin:0!important;
+  padding:0!important;
+  background:#fff!important;
+}
+
+/* Reusable visual case/project component for future case-study cards. */
+.case-card .case-media,
+.project-card .project-media{display:block;aspect-ratio:1/1;overflow:hidden;background:#fff}
+.case-card .case-media img,
+.project-card .project-media img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+
+/* Related products are catalog items, so preserve their complete product view. */
+.pd-related-card img{width:100%!important;height:auto!important;min-height:0!important;aspect-ratio:1/1!important;object-fit:contain!important;object-position:center!important;background:#fff!important}
+
+@media(max-width:560px){
+  .pd-main .detail-gallery.product-gallery{padding:8px!important;gap:8px!important}
+  .pd-main .product-gallery-thumbs{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+}
