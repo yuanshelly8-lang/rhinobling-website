@@ -1,3 +1,47 @@
+/* Day 13: one GTM container; GA4 is configured inside GTM, not with gtag.js. */
+const gtmContainerId='GTM-5Z3DCW8X';
+window.dataLayer=window.dataLayer||[];
+window.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+if(!document.querySelector(`script[data-rhinobling-gtm="${gtmContainerId}"]`)){
+ const gtmScript=document.createElement('script');
+ gtmScript.async=true;
+ gtmScript.src=`https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(gtmContainerId)}`;
+ gtmScript.dataset.rhinoblingGtm=gtmContainerId;
+ document.head.append(gtmScript);
+}
+const analyticsPageType=()=>{
+ const explicit=document.body?.dataset.pageType;
+ if(explicit)return explicit;
+ const path=location.pathname.replace(/^\//,'')||'index.html';
+ if(path==='index.html')return'homepage';
+ if(path==='products.html')return'products';
+ if(path==='category-mirrors.html')return'mirror_category';
+ if(path==='category-drinkware.html')return'drinkware_category';
+ if(path.startsWith('category-'))return'category';
+ if(path.startsWith('product-'))return'product_page';
+ if(path.startsWith('guide-'))return'guide';
+ return'other';
+};
+const analyticsCtaLocation=element=>{
+ if(element.dataset.ctaLocation)return element.dataset.ctaLocation;
+ if(element.closest('.mobile-bar'))return'floating_whatsapp';
+ if(element.closest('.wa'))return'floating_whatsapp';
+ if(element.closest('.nav'))return'header';
+ if(element.closest('.footer'))return'footer';
+ if(element.closest('.hero-actions,.page-hero,.hero-card'))return'hero';
+ if(element.closest('.quote,.quote-section,.form-card'))return'quote_section';
+ return'page_content';
+};
+const trackEvent=(eventName,parameters={})=>{
+ window.dataLayer=window.dataLayer||[];
+ const pathname=window.location.pathname;
+ const pagePath=pathname==='/'||pathname==='/index.html'?'/':pathname;
+ const payload={event:eventName,page_type:analyticsPageType(),page_path:pagePath,...parameters};
+ Object.keys(payload).forEach(key=>payload[key]===undefined&&delete payload[key]);
+ window.dataLayer.push(payload);
+};
+const allowedProductCategories=new Set(['Rhinestone drinkware','Beauty accessories','Rhinestone mirrors','Crystal footwear & fashion','Crystal pill cases & wellness','Other custom rhinestone product']);
+const quantityRangeMap={'50–100 pcs':'50-99','100–500 pcs':'100-499','500–1,000 pcs':'500+','1,000+ pcs':'500+'};
 const waNumber='8615270582230';
 const queryParams=new URLSearchParams(location.search);
 const incomingAttribution={source:queryParams.get('utm_source')||queryParams.get('source')||document.referrer||'direct',medium:queryParams.get('utm_medium')||'',campaign:queryParams.get('utm_campaign')||''};
@@ -73,10 +117,20 @@ const mirrorExpansionCards=extraMirrors.map(([slug,image,title,theme])=>`
   <div class="product-actions"><a class="text-link" href="contact.html?product=${slug}">Get factory quote →</a><a class="source-link" href="category-mirrors.html">Mirrors</a></div>
  </div>
 </article>`).join('');
-document.querySelectorAll('[data-wa]').forEach(link=>{
- const product=link.dataset.product||new URLSearchParams(location.search).get('product')||'custom rhinestone products';
- link.href=buildWhatsAppMessage(product);
- link.addEventListener('click',()=>window.gtag?.('event','whatsapp_click',{product,page:location.pathname}));
+document.querySelectorAll('[data-wa],a[href*="wa.me/"]').forEach(link=>{
+ const attributedProduct=link.dataset.product||document.body?.dataset.product||'';
+ const product=attributedProduct||new URLSearchParams(location.search).get('product')||'custom rhinestone products';
+ if(link.hasAttribute('data-wa'))link.href=buildWhatsAppMessage(product);
+ link.addEventListener('click',()=>trackEvent('whatsapp_click',{
+  product:attributedProduct||undefined,
+  cta_location:analyticsCtaLocation(link)
+ }));
+});
+document.querySelectorAll('a[href^="mailto:"]').forEach(link=>{
+ link.addEventListener('click',()=>trackEvent('email_click',{cta_location:analyticsCtaLocation(link)}));
+});
+document.querySelectorAll('a[data-track-contact],a[data-cta-location][href*="contact.html"]').forEach(link=>{
+ link.addEventListener('click',()=>trackEvent('contact_cta_click',{cta_location:analyticsCtaLocation(link)}));
 });
 document.querySelectorAll('[data-inquiry-form]').forEach(form=>{
  const selected=new URLSearchParams(location.search).get('product');
@@ -86,10 +140,18 @@ document.querySelectorAll('[data-inquiry-form]').forEach(form=>{
   else if(select) select.value=selected;
  }
  form.addEventListener('submit',e=>{
+  if(!form.checkValidity())return;
   e.preventDefault();
   const data=Object.fromEntries(new FormData(form));
-  window.gtag?.('event','generate_lead',{product:data.product,quantity:data.quantity});
-  window.open(buildWhatsAppMessage(data.product||'custom rhinestone products',data),'_blank','noopener');
+  const handoff=window.open(buildWhatsAppMessage(data.product||'custom rhinestone products',data),'_blank','noopener');
+  if(handoff){
+   trackEvent('generate_lead',{
+    form_name:'quote_form',
+    product_category:allowedProductCategories.has(data.product)?data.product:'other_or_custom_product',
+    quantity_range:quantityRangeMap[data.quantity]||'unknown',
+    cta_location:'quote_form'
+   });
+  }
  });
 });
 const toggle=document.querySelector('.menu-toggle');
